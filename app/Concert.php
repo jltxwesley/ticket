@@ -19,4 +19,9 @@ class Concert extends Model
      * @var array
      */
     protected $dates = ['date'];
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('F j, Y');
+    }
 }
