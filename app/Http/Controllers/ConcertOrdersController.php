@@ -9,16 +9,9 @@ class ConcertOrdersController extends Controller
 {
     public function store(PaymentGateway $paymentGateway, Concert $concert)
     {
-        $ticketQuantity = request('ticket_quantity');
-        $amount = $ticketQuantity * $concert->ticket_price;
+        $paymentGateway->charge(request('ticket_quantity') * $concert->ticket_price, request('payment_token'));
 
-        $paymentGateway->charge($amount, request('payment_token'));
-
-        $order = $concert->orders()->create(['email' => request('email')]);
-
-        foreach (range(1, $ticketQuantity) as $i) {
-            $order->tickets()->create([]);
-        }
+        $order = $concert->orderTickets(request('email'), request('ticket_quantity'));
 
         return response()->json([], 201);
     }
