@@ -8,8 +8,10 @@ use App\Concert;
 
 class ConcertOrdersController extends Controller
 {
-    public function store(PaymentGateway $paymentGateway, Concert $concert)
+    public function store(PaymentGateway $paymentGateway, $concertId)
     {
+        $concert = Concert::published()->findOrFail($concertId);
+
         $this->validate(request(), [
             'email'           => 'required|email',
             'ticket_quantity' => 'required|integer|min:1',
