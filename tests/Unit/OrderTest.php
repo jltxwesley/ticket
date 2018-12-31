@@ -7,7 +7,7 @@ use App\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ConcertTest extends TestCase
+class OrderTest extends TestCase
 {
     use RefreshDatabase;
 
