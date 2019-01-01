@@ -13,8 +13,7 @@ class TicketTest extends TestCase
     /** @test */
     public function a_ticket_can_be_released()
     {
-        $concert = factory(Concert::class)->create();
-        $concert->addTickets(1);
+        $concert = factory(Concert::class)->create()->addTickets(1);
         $order = $concert->orderTickets('jane@example.com', 1);
         $ticket = $order->tickets()->first();
         $this->assertEquals($order->id, $ticket->order_id);
