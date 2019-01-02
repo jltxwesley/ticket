@@ -12,12 +12,12 @@ class OrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function create_an_order_from_tickets_and_email()
+    public function create_an_order_from_tickets_and_email_and_amnout()
     {
         $concert = factory(Concert::class)->create(['ticket_price' => 1200])->addTickets(5);
         $this->assertEquals(5, $concert->ticketsRemaining());
 
-        $order = Order::forTickets($concert->findTickets(3), 'john@example.com');
+        $order = Order::forTickets($concert->findTickets(3), 'john@example.com', 3600);
 
         $this->assertEquals('john@example.com', $order->email);
         $this->assertEquals(3, $order->ticketsQuantity());
